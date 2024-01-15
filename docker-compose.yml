@@ -16,7 +16,6 @@ services:
       - database
     ports:
       - 3000:3000
-  
   #The postgres database: 
   database:
     image: postgres:16
@@ -31,7 +30,16 @@ services:
       - "5432:5432"
     networks:
       - myevershop
-
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    networks:
+      - myevershop 
 networks:
   myevershop:
     name: MyEverShop

@@ -40,6 +40,12 @@ pipeline{
 
                 }
             }
+            stage ("Wait_for_testing")
+            {
+                steps{
+                    sh 'sleep 300'
+                }
+            }
             stage('Testing Dev development'){
                 steps{
                 //Test Product service
@@ -54,9 +60,8 @@ pipeline{
             stage('Deploy to prod development'){
                 steps{
                     echo 'Deploying to Kubernetes cluster....'
+
                 }
             }
-
-
         }
 }
