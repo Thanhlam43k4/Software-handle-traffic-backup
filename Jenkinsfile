@@ -29,7 +29,9 @@ pipeline{
             stage('Deploy to dev development!!'){
                 steps{
                     echo 'Using docker compose in dev development'
-
+                    
+                    sh 'fuser -k 80/tcp'
+                    
                     sh 'docker system prune -a --volumes -f'
 
                     sh 'docker network create micro_net || echo "this network exist"'
@@ -43,15 +45,16 @@ pipeline{
             stage ("Wait_for_testing")
             {
                 steps{
-                    sh 'sleep 300'
+                    sh 'sleep 10'
                 }
+                
             }
             stage('Testing Dev development'){
                 steps{
                 //Test Product service
                     echo 'Testing dev development...'
 
-                    sh 'curl 192.168.56.105:3000'
+                    sh 'curl 192.168.56.105'
                
                     sh 'docker compose down'
                //
